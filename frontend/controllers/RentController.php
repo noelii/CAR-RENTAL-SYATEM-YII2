@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * RentController implements the CRUD actions for Rent model.
@@ -84,8 +85,16 @@ class RentController extends Controller
 
     public function actionHistory($user_id)
     {
-        $model = Rent::find()->where($user_id)->all();
+        $model = Rent::find()->where(['user_id' => \Yii::$app->user->id])->all();
         return $this->render('history', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUploadSlip($user_id)
+    {
+        $model = Rent::find()->andwhere(['user_id' => \Yii::$app->user->id])->andWhere(['approve_order' => null])->all();
+        return $this->render('upload-slip', [
             'model' => $model,
         ]);
     }
@@ -98,6 +107,8 @@ class RentController extends Controller
     public function actionCreate($id)
     {
         $model1 = new RentFrom();
+
+        $model2 = Rent::find()->andWhere(['!=', 'approve_order', 'Cancelled'])->orWhere(['approve_order' => null])->andWhere(['>', 'to_date', time()])->andWhere(['car_id'=>$id])->all();
 
         $model = Car::findOne($id);
         if (!$model) {
@@ -123,6 +134,7 @@ class RentController extends Controller
         return $this->render('create', [
             'model' => $model,
             'model1' => $model1,
+            'model2' => $model2,
         ]);
     }
 
@@ -137,8 +149,11 @@ class RentController extends Controller
     {
         $model = $this->findModel($id);
 
+        $model->payslip =UploadedFile::getInstanceByName('payslip');
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            \Yii::$app->session->setFlash('success', 'Payslip Uploaded Successfully');
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->render('update', [

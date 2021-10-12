@@ -44,7 +44,9 @@ return [
             'rules' => [
                 'rent/create/<id>' => 'rent/create',
                 'rent/view/<id>' => 'rent/view',
+                'rent/update/<id>' => 'rent/update',
                 'rent/history/<user_id>' => 'rent/history',
+                'rent/upload-slip/<user_id>' => 'rent/upload-slip',
                 'site/rent/<id>' => 'site/rent'
             ],
         ],

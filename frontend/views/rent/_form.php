@@ -52,7 +52,7 @@ use yii\jui\DatePicker;
 
     <?php } else { ?>
     <?php $form = ActiveForm::begin(); ?>
-        <div style="display: none">
+    <div style="display: none">
 
     <?= $form->field($model1, 'user_id')->textInput(['value'=>\Yii::$app->user->id]) ?>
 
@@ -64,19 +64,19 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model1, 'order_at')->textInput(['value'=>time()]) ?>
 
-        </div>
+    </div>
 
-        <?=  $form->field($model1, 'from_date')->widget(DatePicker::className(), [
-            // if you are using bootstrap, the following line will set the correct style of the input field
-            'options' => ['class' => 'form-control'],
-            // ... you can configure more DatePicker properties here
-        ]) ; ?>
+    <?=  $form->field($model1, 'from_date')->widget(DatePicker::className(), [
+        // if you are using bootstrap, the following line will set the correct style of the input field
+        'options' => ['class' => 'form-control'],
+        // ... you can configure more DatePicker properties here
+    ]) ; ?>
 
-        <?=  $form->field($model1, 'to_date')->widget(DatePicker::className(), [
-            // if you are using bootstrap, the following line will set the correct style of the input field
-            'options' => ['class' => 'form-control'],
-            // ... you can configure more DatePicker properties here
-        ]) ; ?>
+    <?=  $form->field($model1, 'to_date')->widget(DatePicker::className(), [
+        // if you are using bootstrap, the following line will set the correct style of the input field
+        'options' => ['class' => 'form-control'],
+        // ... you can configure more DatePicker properties here
+    ]) ; ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Rent'), ['class' => 'btn btn-block', 'style' => 'background-color: #991506; color: white']) ?>
@@ -84,7 +84,5 @@ use yii\jui\DatePicker;
 
     <?php ActiveForm::end(); ?>
     <?php } ?>
-
-
 
 </div>

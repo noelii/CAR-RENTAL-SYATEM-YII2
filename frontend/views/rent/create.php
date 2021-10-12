@@ -12,6 +12,30 @@ use yii\widgets\DetailView;
 ?>
 <div class="row">
 
+    <div class="col-lg-12">
+        <h2>CAR IS <?php echo $model->car_status?></h2>
+        <?php if ($model->car_status == "UNAVAILABLE") { ?>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Order At</th>
+                <th scope="col">From Date</th>
+                <th scope="col">To Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($model2 as $car):?>
+                <tr>
+                    <td><?php echo \Yii::$app->formatter->asRelativeTime($car->order_at)?></td>
+                    <td><?php echo \Yii::$app->formatter->asDate($car->from_date)?></td>
+                    <td><?php echo \Yii::$app->formatter->asDate($car->to_date)?></td>
+                </tr>
+            <?php endforeach;?>
+            </tbody>
+        </table>
+        <?php } ?>
+    </div>
+
     <div class="col-lg-6">
         <div class="card">
             <img src="<?php echo $model->getCarLink()?>" class="img-fluid card-img-top">

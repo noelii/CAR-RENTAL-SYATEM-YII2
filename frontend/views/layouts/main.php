@@ -52,6 +52,7 @@ AppAsset::register($this);
                 ['label' => 'Rent History', 'url' => ['/rent/history/user_id']],
             ],
             ];
+        $menuItems[] = ['label' => 'Submit Payment', 'url' => ['/rent/upload-slip/user_id']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
